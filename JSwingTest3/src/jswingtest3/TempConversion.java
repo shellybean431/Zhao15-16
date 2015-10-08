@@ -57,8 +57,8 @@ public class TempConversion extends JPanel implements ActionListener{
     JComboBox inputUnit, outputUnit;
     GridBagConstraints c = new GridBagConstraints();
 
-    static String path = "/Users/Sheldon/Desktop/Temperature Data.txt";
-            
+    static String path = "/Users/twardrop/Desktop/Temperature Data.txt";
+    
     //GUI layout
     public TempConversion()
     {
@@ -349,7 +349,7 @@ public class TempConversion extends JPanel implements ActionListener{
             String resDeci = decimal(dec, res);
             ERR.setText("");
             result.setText(resDeci);
-            TempData data = new TempData(inU, outU, inputNum, res, dec);
+            TempData data = new TempData(inU, outU, inputNum, parseDouble(resDeci), dec);
             opList.add(data);
             }
             else
