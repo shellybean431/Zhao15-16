@@ -39,7 +39,7 @@ public class NS {
     
     public static List<String> lName(List<String> list)
     {
-        List<String> temp = swapByLast(sort(migrate(list)));
+        List<String> temp = sort(swapByLast(migrate(list)));
         
                              System.out.println("******THE CURRENT LIST GOES:******");
         printNames(names);
@@ -49,7 +49,7 @@ public class NS {
     
     public static List<String> mName(List<String> list)
     {
-        List<String> temp = swapByMiddle(sort(migrate(list)));
+        List<String> temp = sort(swapByMiddle(migrate(list)));
                              System.out.println("******THE CURRENT LIST GOES:******");
         printNames(names);
                             System.out.println("******THE END OF THE LIST:******");   
@@ -96,13 +96,34 @@ public class NS {
         {
             String name = list.get(i);
             String res = "";
-            while(name.indexOf(" ")!=-1)
+            int pos;
+            if(!suffix(name))
             {
-                name = name.substring(name.indexOf(" ")+1);
+                while(name.indexOf(" ")!=-1)
+                {
+                    name = name.substring(name.indexOf(" ")+1);
+                }
+                pos = list.get(i).indexOf(name);
+                res = name + ", " + list.get(i).substring(0, pos);
+                temp.add(res);
             }
-            int pos = list.get(i).indexOf(name);
-            res = name + ", " + list.get(i).substring(0, pos);
-            temp.add(res);
+            
+            else if(suffix(name))
+            {
+                while(name.indexOf(" ")!=-1)
+                {
+                    name = name.substring(name.indexOf(" ")+1);
+                }
+                String remain = list.get(i).substring(0, list.get(i).indexOf(name)-1);
+                                
+                while(remain.indexOf(" ")!=-1)
+                {
+                    remain = remain.substring(remain.indexOf("")+1);
+                }
+                System.out.println("***" + remain);
+                res = remain + " " + name + ", " + list.get(i).substring(0, list.get(i).indexOf(remain)-1);
+                temp.add(res);
+            }
         }
         return temp;
     }
@@ -122,6 +143,7 @@ public class NS {
                 res = noF + ", " + name.substring(0, pos);
                 temp.add(res);
             }
+            
             else
             {
                 res = " - " + noF + ", " + name.substring(0, name.indexOf(noF));
@@ -129,6 +151,20 @@ public class NS {
             }       
         }
         return temp;
+    }
+    
+    public static boolean suffix(String name)
+    {
+        boolean found = false;
+        String[] sx = {" Jr.", " Sr.", " II", " III", " IV", " V", " Ph.D", " MD"};
+        for(int i=0; i<sx.length; i++)
+        {
+            if (name.indexOf(sx[i])!=-1)
+            {
+                found = true;
+            }
+        }
+        return found;
     }
 
     public static void printNames(List<String> list)
