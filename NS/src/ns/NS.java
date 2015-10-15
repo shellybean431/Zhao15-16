@@ -19,55 +19,116 @@ public class NS {
      */
     
     public static List<String> names = new ArrayList<>();
-    
+
+    public static List<String> test = new ArrayList<>();
+        
+        
     public void addName(String s)
     {
         names.add(s);
     }
     
-    public static void fName(List<String> list)
+    public static List<String> fName(List<String> list)
     {
-        sort(list);
+        List<String> temp = migrate(sort(list));
+                            System.out.println("******THE CURRENT LIST GOES:******");
+        printNames(names);
+                            System.out.println("******THE END OF THE LIST:******");
+        return temp;
     }
     
-    public static void lName(List<String> list)
+    public static List<String> lName(List<String> list)
     {
-        swapByLast(list);
-        sort(list);
+        List<String> temp = swapByLast(sort(migrate(list)));
+        
+                             System.out.println("******THE CURRENT LIST GOES:******");
+        printNames(names);
+                            System.out.println("******THE END OF THE LIST:******");       
+        return temp;
+    }
+    
+    public static List<String> mName(List<String> list)
+    {
+        List<String> temp = swapByMiddle(sort(migrate(list)));
+                             System.out.println("******THE CURRENT LIST GOES:******");
+        printNames(names);
+                            System.out.println("******THE END OF THE LIST:******");   
+        return temp;
+        
+    }
+    
+    public static List<String> migrate(List<String> list)
+    {
+        List<String> temp = new ArrayList<String>();
+        for (int i=0; i<list.size(); i++)
+        {
+            temp.add(list.get(i));
+        }
+        return temp;
     }
     
 
-    public static void sort(List<String> list)
+    public static List<String> sort(List<String> list)
     {
+        List<String> temp = migrate(list);
+        
         int i, j;
         String key;
-        for(i=1; i<list.size(); i++)
+        for(i=1; i<temp.size(); i++)
         {
-            key = list.get(i);
+            key = temp.get(i);
             j = i-1;
-            while(j>=0 && key.compareTo(list.get(j))<0)
+            while(j>=0 && key.compareTo(temp.get(j))<0)
             {
-                list.set(j+1, list.get(j));
+                temp.set(j+1, temp.get(j));
                 j--;
             }
-            list.set(j+1, key);
+            temp.set(j+1, key);
         }
+        
+        return temp;
     }
     
-    public static void swapByLast(List<String> list)
+    public static List<String> swapByLast(List<String> list)
     {
+        List<String> temp = new ArrayList<String>(list.size());
         for (int i=0; i<list.size(); i++)
         {
-            String temp = list.get(i);
+            String name = list.get(i);
             String res = "";
-            while(temp.indexOf(" ")!=-1)
+            while(name.indexOf(" ")!=-1)
             {
-                temp = temp.substring(temp.indexOf(" ")+1);
+                name = name.substring(name.indexOf(" ")+1);
             }
-            int pos = list.get(i).indexOf(temp);
-            res = temp + " " + list.get(i).substring(0, pos);
-            list.set(i, res);
+            int pos = list.get(i).indexOf(name);
+            res = name + ", " + list.get(i).substring(0, pos);
+            temp.add(res);
         }
+        return temp;
+    }
+    
+    public static List<String> swapByMiddle(List<String> list)
+    {
+        List<String> temp = new ArrayList<String>();
+        for (int i=0; i<list.size(); i++)
+        {
+            String name = list.get(i);
+            String res = "";
+            String noF = name.substring(name.indexOf(" ")+1);
+            
+            if(noF.indexOf(" ")!=-1)
+            {
+                int pos = name.indexOf(" ");
+                res = noF + ", " + name.substring(0, pos);
+                temp.add(res);
+            }
+            else
+            {
+                res = " - " + noF + ", " + name.substring(0, name.indexOf(noF));
+                temp.add(res);
+            }       
+        }
+        return temp;
     }
 
     public static void printNames(List<String> list)
@@ -106,11 +167,17 @@ public class NS {
 //        names.add("Stevie Wonder");
 //        names.add("Jack Becker");
 //        names.add("Louisa Aubakckafhue");
-//        fName(names);
+//        test = fName(names);
 //        for(int i = 0; i<names.size(); i++)
 //        {
-//            System.out.println(names.get(i));
+//            System.out.println(test.get(i));
 //        }
+//        test = lName(names);
+//        for(int i = 0; i<names.size(); i++)
+//        {
+//            System.out.println(test.get(i));
+//        }
+//        
     }
     
 }

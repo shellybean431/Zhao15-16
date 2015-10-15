@@ -5,7 +5,9 @@
  */
 package ns;
 
-import static ns.NS.names;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import static ns.NS.*;
 
 /**
  *
@@ -33,9 +35,9 @@ public class UI extends javax.swing.JFrame {
         jDialog2 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        fname = new javax.swing.JButton();
+        mName = new javax.swing.JButton();
+        lName = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         nameOutput = new javax.swing.JTextArea();
         nameInput = new javax.swing.JTextField();
@@ -81,25 +83,44 @@ public class UI extends javax.swing.JFrame {
 
         jLabel1.setText("Sort By:");
 
-        jButton1.setText("First Name");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        fname.setText("First Name");
+        fname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                fnameActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Middle Name");
-
-        jButton3.setText("Last Name");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        mName.setText("Middle Name");
+        mName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                mNameActionPerformed(evt);
+            }
+        });
+
+        lName.setText("Last Name");
+        lName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lNameActionPerformed(evt);
             }
         });
 
         nameOutput.setColumns(20);
         nameOutput.setRows(5);
         jScrollPane1.setViewportView(nameOutput);
+
+        nameInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameInputActionPerformed(evt);
+            }
+        });
+        nameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameInputKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nameInputKeyPressed(evt);
+            }
+        });
 
         jLabel2.setText("Imput Name:");
 
@@ -131,9 +152,9 @@ public class UI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
+                            .addComponent(fname)
+                            .addComponent(mName)
+                            .addComponent(lName)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -147,11 +168,11 @@ public class UI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(fname)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(mName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(lName)
                         .addGap(36, 36, 36)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
@@ -170,17 +191,16 @@ public class UI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnameActionPerformed
         // TODO add your handling code here:
-        NS.fName(names);
-        NS.printNames(names);                                                    System.out.println("*******");
-        nameOutput.setText(NS.displayNames(names));
-        repaint();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        List <String> temp = NS.fName(NS.names);
+        NS.printNames(temp);                                                    System.out.println("*******");
+        nameOutput.setText(NS.displayNames(temp));
+    }//GEN-LAST:event_fnameActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
-        if(nameInput.getText()!="")
+        if(!nameInput.getText().isEmpty())
         {
             names.add(nameInput.getText());
             nameInput.setText("");
@@ -190,17 +210,46 @@ public class UI extends javax.swing.JFrame {
             System.out.println("*******");
         }
                 repaint();
-
     }//GEN-LAST:event_submitActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void lNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lNameActionPerformed
         // TODO add your handling code here:
-        NS.lName(names);
-        NS.printNames(names);                                                    System.out.println("*******");
-        nameOutput.setText(NS.displayNames(names));
+        List <String> temp = NS.lName(NS.names);
+        NS.printNames(temp);
+        System.out.println("*******");
+        nameOutput.setText(NS.displayNames(temp));
         repaint();
+    }//GEN-LAST:event_lNameActionPerformed
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void nameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameInputActionPerformed
+
+    private void nameInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameInputKeyTyped
+
+    }//GEN-LAST:event_nameInputKeyTyped
+
+    private void nameInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameInputKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER&&!nameInput.getText().isEmpty())
+        {
+            names.add(nameInput.getText());
+            nameInput.setText("");
+            NS.printNames(names);
+            nameOutput.setText(NS.displayNames(names));
+            
+            System.out.println("*******");
+        }
+    }//GEN-LAST:event_nameInputKeyPressed
+
+    private void mNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mNameActionPerformed
+        // TODO add your handling code here:
+        List <String> temp = sort(NS.mName(NS.names));
+        NS.printNames(temp);
+        System.out.println("*******");
+        nameOutput.setText(NS.displayNames(temp));
+        repaint();
+    }//GEN-LAST:event_mNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,9 +287,7 @@ public class UI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton fname;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
@@ -248,6 +295,8 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton lName;
+    private javax.swing.JButton mName;
     private javax.swing.JTextField nameInput;
     private javax.swing.JList nameList;
     private javax.swing.JTextArea nameOutput;
