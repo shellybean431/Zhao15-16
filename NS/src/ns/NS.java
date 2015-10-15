@@ -137,7 +137,7 @@ public class NS {
             String res = "";
             String noF = name.substring(name.indexOf(" ")+1);
             
-            if(noF.indexOf(" ")!=-1)
+            if(noF.indexOf(" ")!=-1&&!suffix(name))
             {
                 int pos = name.indexOf(" ");
                 res = noF + ", " + name.substring(0, pos);
