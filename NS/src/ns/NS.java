@@ -25,7 +25,9 @@ public class NS {
         
     public void addName(String s)
     {
+        s = clearSpace(s);
         names.add(s);
+        
     }
     
     public static List<String> fName(List<String> list)
@@ -151,6 +153,24 @@ public class NS {
             }       
         }
         return temp;
+    }
+    
+    public static String clearSpace(String s)
+    {
+        String tmp = s;
+        try{
+            String temp = tmp.substring(0, 1);
+            while (temp.equals(" "))
+            {
+                tmp=tmp.substring(1);
+                temp = tmp.substring(0, 1);
+            }
+            return tmp;
+        }
+        catch(NullPointerException e)
+        {
+            return tmp;
+        }
     }
     
     public static boolean suffix(String name)
